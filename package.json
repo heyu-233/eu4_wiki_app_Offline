@@ -1,0 +1,80 @@
+{
+  "name": "eu4-wiki-offline-app",
+  "version": "0.1.0",
+  "description": "Windows-first offline desktop reader for the EU4 Chinese wiki snapshot.",
+  "main": "app/main.js",
+  "author": "renheyu",
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron .",
+    "start": "electron .",
+    "build:content": "node scripts/build-content.js",
+    "build:release-meta": "node scripts/build-release-meta.js",
+    "pack:content": "node scripts/pack-content.js",
+    "verify:content": "node scripts/verify-content.js",
+    "release:prep": "npm run build:content && npm run build:release-meta && npm run verify:content",
+    "dist:win": "npm run release:prep && electron-builder --win nsis",
+    "dist:dir": "npm run release:prep && electron-builder --dir"
+  },
+  "build": {
+    "appId": "com.renheyu.eu4wikioffline",
+    "productName": "EU4 Wiki Offline",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "app/**/*",
+      "scripts/generated/app-manifest.json",
+      "scripts/generated/release-manifest.json",
+      "package.json",
+      "README.md",
+      "NOTICE",
+      "ATTRIBUTION",
+      "THIRD_PARTY_LICENSES"
+    ],
+    "extraResources": [
+      {
+        "from": "scripts/generated/app-manifest.json",
+        "to": "manifests/app-manifest.json"
+      },
+      {
+        "from": "scripts/generated/release-manifest.json",
+        "to": "manifests/release-manifest.json"
+      }
+    ],
+    "artifactName": "${productName}-${version}-Setup.${ext}",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "EU4 Wiki Offline",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
+    }
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "electron-store": "^10.1.0",
+    "express": "^4.21.2",
+    "jsdom": "^26.0.0",
+    "mime-types": "^2.1.35",
+    "minisearch": "^7.1.2"
+  },
+  "devDependencies": {
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12"
+  }
+}

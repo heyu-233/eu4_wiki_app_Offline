@@ -1,0 +1,13 @@
+Content attribution
+===================
+
+- Source content: locally archived snapshot of `www.eu4cn.com`
+- Original content authors: the original wiki contributors and editors credited by the source site
+- Original trademarks and game-related names belong to their respective owners
+
+Distribution notes
+------------------
+
+- This repository contains the application shell and tooling, not the original wiki snapshot itself.
+- Public releases should clearly attribute the source wiki and should not describe the content pack as an official mirror.
+- If the content licensing status becomes unclear or incompatible with redistribution, stop shipping the content pack and keep the app available as an importer/reader shell only.

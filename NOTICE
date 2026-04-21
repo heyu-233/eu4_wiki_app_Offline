@@ -1,0 +1,5 @@
+EU4 Wiki Offline is an unofficial desktop packaging project for reading a local snapshot of the EU4 Chinese wiki offline.
+
+This project is not affiliated with or endorsed by the original wiki operators, Paradox Interactive, or Paradox Development Studio.
+
+The desktop application code and the wiki content pack are intentionally separated so that the application can remain open-source even if the content distribution policy changes later.

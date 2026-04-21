@@ -1,0 +1,14 @@
+Third-party components
+======================
+
+This project depends on open-source packages distributed through npm, including but not limited to:
+
+- Electron
+- electron-builder
+- Express
+- MiniSearch
+- JSDOM
+- electron-store
+- adm-zip
+
+When preparing a public release, regenerate the dependency lockfile and archive the exact package license texts if you need a complete compliance bundle for redistribution.

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EU4 Wiki Offline</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="eyebrow">Offline Desktop Reader</p>
+        <h1>EU4 Wiki Offline</h1>
+        <p class="subtitle">离线阅读整理版，不是官方镜像。</p>
+      </div>
+
+      <section class="panel search-panel">
+        <label for="search-input">全文搜索</label>
+        <input id="search-input" type="search" placeholder="搜索国家、任务、机制、术语" />
+        <div class="search-actions">
+          <select id="namespace-filter">
+            <option value="article">词条</option>
+            <option value="all">全部页面</option>
+            <option value="special">特殊页</option>
+            <option value="template">模板</option>
+          </select>
+          <label class="checkbox"><input type="checkbox" id="include-noise" /> 包含噪声页</label>
+        </div>
+        <div id="search-results" class="results"></div>
+      </section>
+
+      <section class="panel quick-panel">
+        <div class="panel-head">
+          <h2>最近浏览</h2>
+        </div>
+        <div id="history-list" class="link-list"></div>
+      </section>
+
+      <section class="panel quick-panel">
+        <div class="panel-head">
+          <h2>收藏</h2>
+        </div>
+        <div id="favorites-list" class="link-list"></div>
+      </section>
+
+      <section class="panel about-panel">
+        <h2>发布信息</h2>
+        <div id="release-info" class="meta-list"></div>
+      </section>
+    </aside>
+
+    <main class="main-content">
+      <header class="toolbar">
+        <div class="nav-actions">
+          <button id="back-button">后退</button>
+          <button id="forward-button">前进</button>
+          <button id="home-button">首页</button>
+        </div>
+        <div class="address-bar" id="address-bar">等待加载内容包...</div>
+        <div class="toolbar-actions">
+          <button id="favorite-button">收藏当前页</button>
+          <select id="theme-select">
+            <option value="system">跟随系统</option>
+            <option value="light">浅色</option>
+            <option value="dark">深色</option>
+          </select>
+        </div>
+      </header>
+
+      <section id="setup-panel" class="setup-panel hidden">
+        <div class="setup-card">
+          <p class="eyebrow">Content Setup</p>
+          <h2>先导入离线内容包</h2>
+          <p id="setup-message">未检测到可用内容包。</p>
+          <ul id="setup-checks"></ul>
+          <button id="import-button" class="primary-button">导入内容包</button>
+        </div>
+      </section>
+
+      <section id="viewer-panel" class="viewer-panel hidden">
+        <webview id="wiki-view" class="wiki-frame" allowpopups partition="persist:eu4wiki"></webview>
+      </section>
+    </main>
+  </div>
+  <script src="./renderer.js"></script>
+</body>
+</html>
