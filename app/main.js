@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain, dialog, shell, session } = require("electro
 const path = require("node:path");
 const fs = require("node:fs");
 const { startWikiServer } = require("./lib/server");
-const { checkContentStatus, importContentPack, getCompatibilityManifest } = require("./lib/content-manager");
+const { checkContentStatus, importContentPack, importContentDirectory, getCompatibilityManifest } = require("./lib/content-manager");
 const { search } = require("./lib/search-manager");
 const { getStore, addHistory, toggleFavorite } = require("./lib/store");
 const { APP_NAME, DEFAULT_ENTRY_PAGE } = require("./config/defaults");
@@ -114,16 +114,19 @@ ipcMain.handle("content.checkStatus", async () => {
 
 ipcMain.handle("content.importPack", async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
-    title: "Select EU4 Wiki content pack",
+    title: "Select EU4 Wiki content pack or folder",
     filters: [{ name: "ZIP files", extensions: ["zip"] }],
-    properties: ["openFile"]
+    properties: ["openFile", "openDirectory"]
   });
 
   if (result.canceled || !result.filePaths[0]) {
     return { canceled: true };
   }
 
-  const status = importContentPack(result.filePaths[0]);
+  const selectedPath = result.filePaths[0];
+  const status = selectedPath.toLowerCase().endsWith(".zip")
+    ? importContentPack(selectedPath)
+    : importContentDirectory(selectedPath);
   if (wikiServer?.server) {
     wikiServer.server.close();
     wikiServer = null;

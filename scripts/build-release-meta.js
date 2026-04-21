@@ -1,4 +1,4 @@
-const fs = require("node:fs");
+﻿const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
@@ -32,9 +32,7 @@ const releaseManifest = {
   ]
 };
 
-fs.writeFileSync(path.join(outDir, "app-manifest.json"), JSON.stringify(appManifest, null, 2));
-fs.writeFileSync(path.join(outDir, "release-manifest.json"), JSON.stringify(releaseManifest, null, 2));
-fs.writeFileSync(path.join(outDir, "release-notes-template.md"), `# EU4 Wiki Offline ${packageJson.version}
+const releaseNotes = `# EU4 Wiki Offline ${packageJson.version}
 
 ## 下载内容
 
@@ -57,5 +55,9 @@ fs.writeFileSync(path.join(outDir, "release-notes-template.md"), `# EU4 Wiki Off
 
 - 本项目是离线桌面阅读整理版，不是官方镜像
 - 请保留原站署名与来源说明
-`);
+`;
+
+fs.writeFileSync(path.join(outDir, "app-manifest.json"), JSON.stringify(appManifest, null, 2));
+fs.writeFileSync(path.join(outDir, "release-manifest.json"), JSON.stringify(releaseManifest, null, 2));
+fs.writeFileSync(path.join(outDir, "release-notes-template.md"), releaseNotes);
 console.log("Generated app and release manifests.");

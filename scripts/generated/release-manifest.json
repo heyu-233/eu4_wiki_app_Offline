@@ -2,7 +2,7 @@
   "summary": "Windows-first offline desktop reader for the EU4 Chinese wiki snapshot.",
   "appVersion": "0.1.0",
   "contentVersion": "2024.11.11-snapshot.1",
-  "pageCount": 5935,
+  "pageCount": 6158,
   "sourceSnapshotDate": "2024-11-11",
   "releaseFiles": [
     "EU4 Wiki Offline-0.1.0-Setup.exe",

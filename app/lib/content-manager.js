@@ -115,6 +115,21 @@ function ensureUserContentDir() {
   return target;
 }
 
+function validateContentRoot(candidateRoot) {
+  const metadata = getContentMetadata(candidateRoot);
+  const expectedFiles = [
+    path.join(candidateRoot, HOME_FILE),
+    metadata.manifestPath,
+    metadata.contentManifestPath,
+    metadata.searchIndexPath
+  ];
+  const missingFiles = expectedFiles.filter((target) => !fs.existsSync(target));
+  if (missingFiles.length) {
+    throw new Error(`Selected content folder is incomplete: ${missingFiles.join(", ")}`);
+  }
+  return metadata;
+}
+
 function importContentPack(zipPath) {
   const destinationRoot = ensureUserContentDir();
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "eu4-content-"));
@@ -143,10 +158,17 @@ function importContentPack(zipPath) {
   return checkContentStatus();
 }
 
+function importContentDirectory(contentRoot) {
+  validateContentRoot(contentRoot);
+  getStore().set("importedContentRoot", contentRoot);
+  return checkContentStatus();
+}
+
 module.exports = {
   checkContentStatus,
   getImportedContentRoot,
   getContentMetadata,
   getCompatibilityManifest,
-  importContentPack
+  importContentPack,
+  importContentDirectory
 };

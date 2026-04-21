@@ -1,8 +1,10 @@
 {
   "contentVersion": "2024.11.11-snapshot.1",
   "snapshotDate": "2024-11-11",
-  "pageCount": 5935,
+  "pageCount": 6158,
   "namespaceCounts": {
-    "article": 5935
+    "article": 5883,
+    "category": 215,
+    "project": 60
   }
 }

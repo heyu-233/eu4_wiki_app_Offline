@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -9,56 +9,88 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar">
-      <div class="brand">
-        <p class="eyebrow">Offline Desktop Reader</p>
-        <h1>EU4 Wiki Offline</h1>
-        <p class="subtitle">离线阅读整理版，不是官方镜像。</p>
+      <div class="brand-card panel">
+        <p class="eyebrow">Grand Strategy Archive</p>
+        <h1>EU4 离线档案馆</h1>
+        <p class="subtitle">为长时间查阅而设计的桌面阅读器。重点是快读、检索、回看，而不是把网页硬塞进一个普通壳子里。</p>
+        <div class="brand-meta">
+          <span class="meta-chip">离线</span>
+          <span class="meta-chip">Windows 首发</span>
+          <span class="meta-chip">内容外置</span>
+        </div>
       </div>
 
       <section class="panel search-panel">
-        <label for="search-input">全文搜索</label>
-        <input id="search-input" type="search" placeholder="搜索国家、任务、机制、术语" />
-        <div class="search-actions">
-          <select id="namespace-filter">
-            <option value="article">词条</option>
-            <option value="all">全部页面</option>
-            <option value="special">特殊页</option>
-            <option value="template">模板</option>
-          </select>
-          <label class="checkbox"><input type="checkbox" id="include-noise" /> 包含噪声页</label>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Search</p>
+            <h2>检索中心</h2>
+          </div>
+          <div id="search-status" class="status-badge">待命</div>
         </div>
+
+        <label class="field-label" for="search-input">输入国家、任务、机制、术语或英文名</label>
+        <div class="search-box-wrap">
+          <input id="search-input" type="search" placeholder="例如：法兰西 / France / mission / 贸易 / Ottoman" autocomplete="off" />
+          <button id="clear-search-button" class="ghost-button" title="清空搜索">清空</button>
+        </div>
+
+        <div class="search-actions">
+          <label class="control-block">
+            <span>页面范围</span>
+            <select id="namespace-filter">
+              <option value="article">仅词条</option>
+              <option value="all">全部页面</option>
+              <option value="special">仅特殊页</option>
+              <option value="template">仅模板</option>
+              <option value="project">仅项目页</option>
+            </select>
+          </label>
+          <label class="checkbox pill-check">
+            <input type="checkbox" id="include-noise" />
+            <span>包含讨论页 / 用户页等低价值结果</span>
+          </label>
+        </div>
+
+        <div id="search-summary" class="search-summary">输入关键词后开始检索。</div>
         <div id="search-results" class="results"></div>
       </section>
 
       <section class="panel quick-panel">
-        <div class="panel-head">
-          <h2>最近浏览</h2>
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow">Trail</p>
+            <h2>最近浏览</h2>
+          </div>
         </div>
         <div id="history-list" class="link-list"></div>
       </section>
 
       <section class="panel quick-panel">
-        <div class="panel-head">
-          <h2>收藏</h2>
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow">Pinned</p>
+            <h2>收藏</h2>
+          </div>
         </div>
         <div id="favorites-list" class="link-list"></div>
-      </section>
-
-      <section class="panel about-panel">
-        <h2>发布信息</h2>
-        <div id="release-info" class="meta-list"></div>
       </section>
     </aside>
 
     <main class="main-content">
       <header class="toolbar">
-        <div class="nav-actions">
+        <div class="toolbar-block nav-actions">
           <button id="back-button">后退</button>
           <button id="forward-button">前进</button>
           <button id="home-button">首页</button>
         </div>
-        <div class="address-bar" id="address-bar">等待加载内容包...</div>
-        <div class="toolbar-actions">
+
+        <div class="toolbar-block route-block">
+          <div class="route-label">当前页面</div>
+          <div class="address-bar" id="address-bar">等待加载内容...</div>
+        </div>
+
+        <div class="toolbar-block toolbar-actions">
           <button id="favorite-button">收藏当前页</button>
           <select id="theme-select">
             <option value="system">跟随系统</option>
@@ -68,19 +100,45 @@
         </div>
       </header>
 
+      <section class="overview-strip">
+        <article class="overview-card hero-card">
+          <p class="eyebrow">Archive Status</p>
+          <h2 id="overview-title">等待内容校验</h2>
+          <p id="overview-copy">启动后会在这里显示当前内容包状态、版本以及当前阅读页。</p>
+        </article>
+        <article class="overview-card stat-card">
+          <span class="stat-label">当前内容包</span>
+          <strong id="current-pack">未加载</strong>
+        </article>
+        <article class="overview-card stat-card">
+          <span class="stat-label">支持版本</span>
+          <strong id="supported-pack">--</strong>
+        </article>
+        <article class="overview-card stat-card">
+          <span class="stat-label">结果计数</span>
+          <strong id="result-count">0</strong>
+        </article>
+      </section>
+
       <section id="setup-panel" class="setup-panel hidden">
         <div class="setup-card">
           <p class="eyebrow">Content Setup</p>
-          <h2>先导入离线内容包</h2>
+          <h2>先挂载离线内容</h2>
           <p id="setup-message">未检测到可用内容包。</p>
           <ul id="setup-checks"></ul>
-          <button id="import-button" class="primary-button">导入内容包</button>
+          <div class="setup-actions">
+            <button id="import-button" class="primary-button">导入内容包或内容目录</button>
+          </div>
         </div>
       </section>
 
       <section id="viewer-panel" class="viewer-panel hidden">
         <webview id="wiki-view" class="wiki-frame" allowpopups partition="persist:eu4wiki"></webview>
       </section>
+
+      <footer class="bottom-meta">
+        <div id="release-info" class="meta-list"></div>
+      </footer>
     </main>
   </div>
   <script src="./renderer.js"></script>
