@@ -12,9 +12,16 @@
 npm run build:content
 npm run build:release-meta
 npm run verify:content
-npm run pack:content
+npm run plan:content
+npm run pack:content:core
 npm run dist:win
 ```
+
+Notes:
+
+- `pack:content:core` is the recommended public distribution pack
+- `pack:content:full` keeps more of the original snapshot but is significantly larger and slower to build
+- Generate large content packs as a dedicated background task; do not block normal app testing on this step
 
 ## Publish
 

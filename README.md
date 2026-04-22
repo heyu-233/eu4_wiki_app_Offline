@@ -23,13 +23,25 @@ If no content pack has been imported yet, the app starts in setup mode and guide
 ## Public distribution flow
 
 1. Prepare the source snapshot in `www.eu4cn.com/`
-2. Run `npm run pack:content`
+2. Run `npm run plan:content` to estimate the current pack size
+3. Run `npm run pack:content:core` for the distribution-oriented pack, or `npm run pack:content:full` for the full archival pack
 3. Run `npm run dist:win`
 4. Publish these artifacts together:
    - `EU4 Wiki Offline-<version>-Setup.exe`
-   - `eu4wiki-content-<contentVersion>.zip`
+   - `eu4wiki-content-<contentVersion>-core.zip` or `eu4wiki-content-<contentVersion>-full.zip`
    - `release-manifest.json`
    - checksums from `artifacts/checksums.txt`
+
+## Testing the installed build right now
+
+For local testing you do not need to wait for a packaged content zip:
+
+1. Install `dist/EU4 Wiki Offline-0.1.0-Setup.exe`
+2. Launch the app
+3. Choose `导入内容包或内容目录`
+4. Select the existing folder `D:\renheyu\eu4_wiki_app_offline\www.eu4cn.com`
+
+This is the fastest path to verify the installed app before you spend time generating large public content archives.
 
 ## Release notes checklist
 
